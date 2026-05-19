@@ -17,7 +17,7 @@ const projectSchema = new mongoose.Schema(
 
     url: {
       type: String,
-      required: [true, "Url is required"],
+      required: [false, "Url is required"],
       trim: true,
       match: [
         /^(https?:\/\/)?([\w.-]+)(:\d+)?(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/,

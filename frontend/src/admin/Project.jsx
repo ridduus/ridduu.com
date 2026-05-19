@@ -150,8 +150,8 @@ export default function Projects() {
 
     if (!form.title.trim()) newErrors.title = "Title is required";
     if (!form.key.trim()) newErrors.key = "Key is required";
-    if (!form.url.trim()) newErrors.url = "URL is required";
-    else if (!form.url.includes("http")) newErrors.url = "Enter valid URL";
+    // if (!form.url.trim()) newErrors.url = "URL is required";
+    // else if (!form.url.includes("http")) newErrors.url = "Enter valid URL";
 
     if (!form.year) newErrors.year = "Year is required";
     if (!form.desc || form.desc.length < 10)
@@ -326,7 +326,7 @@ export default function Projects() {
                 className="flex items-center gap-2 text-sm hover:gap-3 transition"
               >
                 <ExternalLink size={14} />
-                {proj.url}
+                {proj.url ? proj.url : "Coming Soon"}
               </a>
             </div>
           ))}

@@ -265,7 +265,8 @@ export default function Projects() {
                   style={{ color: proj.url !== "#" ? proj.color : "var(--color-text-muted)" }}
                 >
                   <ExternalLink size={14} />
-                  {proj.url !== "#" ? proj.url.replace("https://", "") : "Coming Soon"}
+                  {/* {proj.url !== "#" ? proj.url.replace("https://", "") : "Coming Soon"} */}
+                  {proj.url ? proj.url : "Coming Soon"}
                 </a>
               </div>
             </div>

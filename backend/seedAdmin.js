@@ -9,7 +9,7 @@ dotenv.config();
 const start = async () => {
   try {
     await mongoose.connect(
-      process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/ronak_portfolio"
+      process.env.MONGODB_URI || "mongodb+srv://ronaksharma2350_db_user:Gungun%402350%23@ridduu.bcodmvm.mongodb.net/ridduu?retryWrites=true&w=majority&appName=ridduu"
     );
 
     console.log("✅ DB Connected");
@@ -18,7 +18,7 @@ const start = async () => {
     const existingAdmin = await Admin.findOne({ email: "admin@ridduu.com" });
 
     if (!existingAdmin) {
-      const hashedPassword = await bcrypt.hash("123456", 10);
+      const hashedPassword = await bcrypt.hash("Radhu@321", 10);
 
       await Admin.create({
         email: "admin@ridduu.com",
