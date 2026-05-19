@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const SettingsContext = createContext();
 
-const API_BASE = "/backend";
+const API_BASE = "https://ridduu-com.onrender.com/api";
 
 export const SettingsProvider = ({ children }) => {
   const [settings, setSettings] = useState({});
