@@ -5,7 +5,7 @@ import { ExternalLink, Calendar } from "lucide-react";
 import { useSettings } from "../Context/settingContext";
 import AB from "../../public/Ab1.png";
 
-const API_BASE = "http://localhost:5000/api"; // change if needed
+const API_BASE = "https://ridduu-com.onrender.com/api"; // change if needed
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);

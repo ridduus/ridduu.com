@@ -80,7 +80,7 @@ export default function AboutEditable() {
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/profile");
+      const res = await axios.get("https://ridduu-com.onrender.com/api/profile");
 
       const data = res.data.profile;
 
@@ -116,7 +116,7 @@ export default function AboutEditable() {
       };
 
       await axios.post(
-        "http://localhost:5000/api/profile",
+        "https://ridduu-com.onrender.com/api/profile",
         payload,
         {
           headers: {

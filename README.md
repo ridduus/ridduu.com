@@ -84,7 +84,7 @@ Open **two terminals**:
 ```bash
 cd backend
 npm run dev
-# Server: http://localhost:5000
+# Server: https://ridduu-com.onrender.com
 ```
 
 **Terminal 2 — Frontend**
@@ -94,7 +94,7 @@ npm run dev
 # App: http://localhost:5173
 ```
 
-> The Vite dev server proxies `/api/*` → `http://localhost:5000` automatically.
+> The Vite dev server proxies `/api/*` → `https://ridduu-com.onrender.com` automatically.
 
 ---
 

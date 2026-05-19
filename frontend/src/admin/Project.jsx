@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ExternalLink, Calendar, Plus, Pencil, Trash2 } from "lucide-react";
 import AB from "../../public/Ab1.png";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_BASE = import.meta.env.VITE_API_URL || "https://ridduu-com.onrender.com/api";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);

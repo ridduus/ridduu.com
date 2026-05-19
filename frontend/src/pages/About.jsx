@@ -7,7 +7,7 @@ import {
   Phone,
 } from "lucide-react";
 
-const API_BASE = "http://localhost:5000/api"; // change if needed
+const API_BASE = "https://ridduu-com.onrender.com/api"; // change if needed
 
 export default function About() {
   const [education, setEducation] = useState([]);

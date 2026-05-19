@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Star, Pencil, Trash2, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_BASE = import.meta.env.VITE_API_URL || "https://ridduu-com.onrender.com/api";
 
 function StarRating({ value }) {
   return (
