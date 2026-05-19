@@ -8,7 +8,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/api": {
-        target: "/",
+        target: "https://ridduu-com.onrender.com",
         changeOrigin: true,
       },
     },
