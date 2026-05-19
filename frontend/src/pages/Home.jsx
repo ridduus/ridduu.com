@@ -342,7 +342,7 @@ import { useSettings } from "../Context/settingContext";
 import Resume from "../../public/assets/Ronak_Sharma_CV.pdf";
 
 import Software from "../../public/soft.png";
-import Website from "../../public/web.png";
+import Website from "../../public/Web.png";
 import Application from "../../public/app.png";
 import IOT from "../../public/iot.png";
 import Hosting from "../../public/host.png";
