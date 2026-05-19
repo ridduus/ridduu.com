@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ExternalLink, Calendar, Plus, Pencil, Trash2 } from "lucide-react";
-import AB from "../../public/ab1.png";
+import AB from "../../public/Ab1.png";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { ExternalLink, Calendar } from "lucide-react";
 import { useSettings } from "../Context/settingContext";
-import AB from "../../public/ab1.png";
+import AB from "../../public/Ab1.png";
 
 const API_BASE = "http://localhost:5000/api"; // change if needed
 

@@ -511,7 +511,7 @@ export default function Home() {
                 <div className="w-65 h-65 md:w-72 md:h-72 rounded-full flex items-center justify-center text-8xl font-black">
                   <img
                     className="max-w-95"
-                    src="../ridduu.png"
+                    src="/ridduu.png"
                     alt="ridduu"
                   />
                 </div>
