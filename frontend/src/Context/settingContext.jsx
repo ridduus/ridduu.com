@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const SettingsContext = createContext();
 
-const API_BASE = "https://ridduu-com.vercel.app/api";
+const API_BASE = "/_svc/backend/index/api";
 
 export const SettingsProvider = ({ children }) => {
   const [settings, setSettings] = useState({});
