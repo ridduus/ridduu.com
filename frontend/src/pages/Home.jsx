@@ -336,7 +336,7 @@ import {
   Mail,
 } from "lucide-react";
 
-import { useProfile } from "../context/ProfileContext";
+import { useProfile } from "../Context/profileContext";
 import { useSettings } from "../Context/settingContext";
 
 import Resume from "../../public/assets/Ronak_Sharma_CV.pdf";

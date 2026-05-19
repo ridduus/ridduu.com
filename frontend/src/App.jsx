@@ -84,8 +84,8 @@
 // }
 
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
-import { ProfileProvider } from "./context/ProfileContext";
-import { SettingsProvider } from "./context/settingContext";
+import { ProfileProvider } from "./Context/profileContext";
+import { SettingsProvider } from "./Context/settingContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -96,7 +96,7 @@ import Skills from "./pages/Skills";
 import Reviews from "./pages/Reviews";
 import Contact from "./pages/Contact";
 
-import Login from "./admin/login";
+import Login from "./admin/Login";
 import Dashboard from "./admin/Dashboard";
 import DashboardLayout from "./admin/DashboardLayout";
 import Project from "./admin/Project";

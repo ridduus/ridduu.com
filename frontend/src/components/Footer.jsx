@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useProfile } from "../context/ProfileContext";
+import { useProfile } from "../Context/profileContext";
 import {
   Github,
   Linkedin,
