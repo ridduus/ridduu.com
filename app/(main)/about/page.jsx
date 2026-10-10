@@ -4,6 +4,9 @@ import Education from '@/models/Education';
 import Experience from '@/models/Experience';
 import Profile from '@/models/Profile';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function Page() {
   let initialEducation = [];
   let initialExperience = [];
@@ -23,3 +26,4 @@ export default async function Page() {
   }
   return <ClientPage initialEducation={initialEducation} initialExperience={initialExperience} initialProfile={initialProfile} />;
 }
+

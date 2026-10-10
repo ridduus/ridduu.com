@@ -73,13 +73,14 @@ export default function Projects({ initialProjects }) {
   }
 
   const visibleProjects = projects.filter((proj) =>
-    !proj.key || isVisible("projects", proj.key)
+    isVisible("projects", proj.key || proj._id || proj.title)
   );
 
-  const displayList = visibleProjects.length > 0 ? visibleProjects : defaultProjects;
+  const displayList = visibleProjects;
+
 
   return (
-    <div className="bg-white pt-28 pb-20 text-slate-800">
+    <div className="bg-white pb-20 text-slate-800">
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Header matching reference image */}

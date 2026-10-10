@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Upload, Save, User as UserIcon, Loader2, MapPin, Mail, Phone, Briefcase } from "lucide-react";
+import { Upload, Save, User as UserIcon, Loader2, MapPin, Mail, Phone, Briefcase, Plus, Trash2 } from "lucide-react";
+
 import imageCompression from "browser-image-compression";
 import toast from "react-hot-toast";
 
@@ -9,6 +10,8 @@ const API_BASE = "/api";
 
 export default function AboutEditable() {
   const [profileImg, setProfileImg] = useState("");
+  const [cv, setCv] = useState("");
+  const [cvFileName, setCvFileName] = useState("");
   const [name, setName] = useState("");
   const [designation, setDesignation] = useState("");
   const [phone, setPhone] = useState("");
@@ -40,6 +43,7 @@ export default function AboutEditable() {
         setDesc1(p.desc1 || "");
         setDesc2(p.desc2 || "");
         setProfileImg(p.profileImg || "");
+        setCv(p.cv || "");
         setStats(p.stats || []);
       }
     } catch (err) {
@@ -71,6 +75,23 @@ export default function AboutEditable() {
     }
   };
 
+  const handleCvChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 12 * 1024 * 1024) {
+        toast.error("Resume file size should be less than 12MB");
+        return;
+      }
+      setCvFileName(file.name);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCv(reader.result);
+        toast.success(`Selected resume: ${file.name}`);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSave = async (e) => {
     e.preventDefault();
     try {
@@ -88,6 +109,7 @@ export default function AboutEditable() {
           desc1,
           desc2,
           profileImg,
+          cv,
           stats,
         },
         {
@@ -98,15 +120,17 @@ export default function AboutEditable() {
       if (res.data.success) {
         toast.success("Profile saved successfully!");
       } else {
-        toast.error("Failed to save profile");
+        toast.error(res.data.message || "Failed to save profile");
       }
     } catch (err) {
       console.error("Save profile error:", err);
-      toast.error("Error saving profile");
+      const msg = err.response?.data?.message || "Error saving profile";
+      toast.error(msg);
     } finally {
       setSaving(false);
     }
   };
+
 
   const handleStatChange = (index, field, value) => {
     const newStats = [...stats];
@@ -276,6 +300,79 @@ export default function AboutEditable() {
           </div>
         </div>
 
+        {/* Key Statistics Highlights */}
+        <div className="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div>
+              <h3 className="text-base font-bold text-slate-100">
+                Key Statistics Highlights
+              </h3>
+              <p className="text-slate-400 text-xs mt-0.5">
+                Manage experience counters (e.g., 4+ Years Experience, 5+ Production Projects)
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={addStat}
+              className="px-3.5 py-1.5 rounded-xl bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 text-xs font-semibold hover:bg-indigo-600/30 transition flex items-center gap-1.5"
+            >
+              <Plus size={14} /> Add Stat
+            </button>
+          </div>
+
+          <div className="space-y-3">
+            {stats && stats.length > 0 ? (
+              stats.map((stat, idx) => (
+                <div
+                  key={idx}
+                  className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 p-3.5 bg-slate-950 border border-slate-800 rounded-xl"
+                >
+                  <div className="sm:w-1/3">
+                    <label className="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
+                      Stat Value (e.g. 4+)
+                    </label>
+                    <input
+                      type="text"
+                      value={stat.value || ""}
+                      onChange={(e) => handleStatChange(idx, "value", e.target.value)}
+                      placeholder="4+"
+                      className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-indigo-500"
+                    />
+                  </div>
+
+                  <div className="flex-1">
+                    <label className="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
+                      Stat Label (e.g. Years Experience)
+                    </label>
+                    <input
+                      type="text"
+                      value={stat.label || ""}
+                      onChange={(e) => handleStatChange(idx, "label", e.target.value)}
+                      placeholder="Years Experience"
+                      className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-indigo-500"
+                    />
+                  </div>
+
+                  <div className="sm:pt-5 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() => removeStat(idx)}
+                      className="p-2 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-lg transition"
+                      title="Remove Stat"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-slate-500 text-xs italic py-2">
+                No custom stats added yet. Click "Add Stat" to create one.
+              </p>
+            )}
+          </div>
+        </div>
+
         {/* Profile Image */}
         <div className="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 shadow-xl space-y-4">
           <h3 className="text-base font-bold text-slate-100 pb-3 border-b border-slate-800">
@@ -304,6 +401,48 @@ export default function AboutEditable() {
             </div>
           </div>
         </div>
+
+        {/* Resume / CV Upload Document */}
+        <div className="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <h3 className="text-base font-bold text-slate-100">
+              Resume / CV Document Upload
+            </h3>
+            {cv && (
+              <a
+                href={cv}
+                download={cvFileName || "Ronak_Sharma_CV.pdf"}
+                className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold underline flex items-center gap-1"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Preview Uploaded CV
+              </a>
+            )}
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 flex items-center justify-center shrink-0 font-bold text-xs">
+              PDF
+            </div>
+
+            <div className="flex-1 w-full space-y-2">
+              <input
+                type="file"
+                accept=".pdf,.doc,.docx"
+                onChange={handleCvChange}
+                className="w-full text-xs text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 cursor-pointer"
+              />
+              <p className="text-[11px] text-slate-400">
+                Upload your latest resume file (PDF/DOC). When saved, visitors will download this file from Navbar & About page.
+              </p>
+              {cvFileName && (
+                <p className="text-xs text-emerald-400 font-medium">Selected file: {cvFileName}</p>
+              )}
+            </div>
+          </div>
+        </div>
+
       </form>
     </div>
   );

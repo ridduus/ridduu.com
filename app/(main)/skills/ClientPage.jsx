@@ -50,7 +50,7 @@ export default function Skills({ initialSkills }) {
   }
 
   return (
-    <div className="bg-white pt-28 pb-20 text-slate-800">
+    <div className="bg-white pb-20 text-slate-800">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-12 space-y-2">

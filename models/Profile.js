@@ -15,6 +15,7 @@ const profileSchema = new mongoose.Schema(
         location: { type: String, default: "" },
 
         profileImg: { type: String, default: "" }, // image URL
+        cv: { type: String, default: "" }, // CV / Resume data URL or link
 
         stats: [statSchema],
 

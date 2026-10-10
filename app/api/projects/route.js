@@ -4,7 +4,11 @@ import Project from '@/models/Project';
 import { requireAuth, unauthorizedResponse } from '@/lib/auth';
 import { sanitizeObject } from '@/lib/sanitize';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET() {
+
   try {
     await dbConnect();
     const data = await Project.find().lean().sort({ createdAt: -1 });

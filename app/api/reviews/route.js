@@ -5,6 +5,9 @@ import { requireAuth } from '@/lib/auth';
 import { submissionLimiter, apiLimiter } from '@/lib/rateLimit';
 import { sanitizeObject } from '@/lib/sanitize';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 // GET: Public returns ONLY approved reviews; Admin gets all reviews if authenticated
 export async function GET(req) {
   const rateLimitResult = apiLimiter(req);
@@ -26,7 +29,7 @@ export async function GET(req) {
   }
 }
 
-// POST: Submit a new review (always set approved: false until admin approves)
+// POST: Submit a new review
 export async function POST(req) {
   const rateLimitResult = submissionLimiter(req);
   if (!rateLimitResult.success) {
@@ -35,6 +38,7 @@ export async function POST(req) {
 
   try {
     await dbConnect();
+    const auth = await requireAuth(req);
     const rawBody = await req.json();
     const cleanBody = sanitizeObject(rawBody);
 
@@ -53,13 +57,13 @@ export async function POST(req) {
       role: role || 'Professional',
       rating: Number(rating),
       message,
-      approved: false, // Must be approved by admin
+      approved: auth ? (cleanBody.approved !== undefined ? cleanBody.approved : true) : false,
     });
 
     return NextResponse.json(
       {
         success: true,
-        message: 'Review submitted successfully! It will be published after admin approval.',
+        message: auth ? 'Review created successfully' : 'Review submitted successfully! It will be published after admin approval.',
         data: review,
       },
       { status: 201 }
@@ -68,3 +72,4 @@ export async function POST(req) {
     return NextResponse.json({ success: false, message: err.message }, { status: 400 });
   }
 }
+

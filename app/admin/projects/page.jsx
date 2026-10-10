@@ -85,6 +85,19 @@ export default function Projects() {
       setSaving(true);
       const token = localStorage.getItem("token");
 
+      const projectKey = form.key ? form.key.trim() : form.title.toLowerCase().replace(/[^a-z0-9]/g, "_");
+      const formattedTags = Array.isArray(form.tags)
+        ? form.tags
+        : typeof form.tags === "string"
+        ? form.tags.split(",").map((t) => t.trim()).filter(Boolean)
+        : [];
+
+      const payload = {
+        ...form,
+        key: projectKey,
+        tags: formattedTags,
+      };
+
       const url = editId ? `${API_BASE}/projects/${editId}` : `${API_BASE}/projects`;
       const method = editId ? "PUT" : "POST";
 
@@ -94,10 +107,11 @@ export default function Projects() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
+
 
       if (data.success) {
         toast.success(editId ? "Project updated successfully!" : "Project created successfully!");

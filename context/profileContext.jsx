@@ -9,32 +9,34 @@ export const ProfileProvider = ({ children, initialProfile }) => {
   const [profile, setProfile] = useState(initialProfile || null);
   const [loading, setLoading] = useState(!initialProfile);
 
-  useEffect(() => {
-    if (initialProfile) return; // Skip fetch if SSR hydrated
+  const fetchProfile = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/profile`, { cache: "no-store" });
+      const data = await res.json();
 
-    const fetchProfile = async () => {
-      try {
-        const res = await fetch(`${API_BASE}/profile`);
-        const data = await res.json();
-
-        if (data.success) {
-          setProfile(data.profile);
-        }
-      } catch (err) {
-        console.error("Profile Fetch Error:", err);
-      } finally {
-        setLoading(false);
+      if (data.success && data.profile) {
+        setProfile(data.profile);
       }
-    };
+    } catch (err) {
+      console.error("Profile Fetch Error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
+    if (initialProfile) {
+      setProfile(initialProfile);
+    }
     fetchProfile();
   }, [initialProfile]);
 
   return (
-    <ProfileContext.Provider value={{ profile, loading }}>
+    <ProfileContext.Provider value={{ profile, loading, refreshProfile: fetchProfile }}>
       {children}
     </ProfileContext.Provider>
   );
 };
 
 export const useProfile = () => useContext(ProfileContext);
+

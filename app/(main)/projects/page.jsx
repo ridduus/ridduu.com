@@ -2,7 +2,11 @@ import ClientPage from './ClientPage';
 import dbConnect from '@/lib/db';
 import Project from '@/models/Project';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function Page() {
+
   let initialProjects = [];
   try {
     await dbConnect();

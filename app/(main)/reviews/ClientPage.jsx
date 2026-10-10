@@ -175,13 +175,14 @@ export default function Reviews({ initialReviews }) {
   }
 
   const visibleReviews = reviews.filter(
-    (rev) => !rev.key || isVisible("reviews", rev.key)
+    (rev) => isVisible("reviews", rev.key || rev._id || rev.name)
   );
 
-  const displayList = visibleReviews.length > 0 ? visibleReviews : defaultReviews;
+  const displayList = visibleReviews;
+
 
   return (
-    <div className="bg-white pt-28 pb-20 text-slate-800">
+    <div className="bg-white pb-20 text-slate-800">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-12 space-y-2">

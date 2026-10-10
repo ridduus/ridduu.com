@@ -10,16 +10,17 @@ import Setting from "@/models/Setting";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata = {
-  title: "ridduu.com",
+  title: "Ronak Sharma - Software Engineer",
   description: "Ronak Sharma - Full Stack Developer",
 };
 
-export const revalidate = 3600; // ISR: Revalidate every hour fallback
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function RootLayout({ children }) {
   let initialProfile = null;
   let initialSettings = {};
-  
+
   try {
     const fetchPromise = (async () => {
       await dbConnect();
